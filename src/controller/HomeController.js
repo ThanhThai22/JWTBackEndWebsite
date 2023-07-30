@@ -1,3 +1,13 @@
+import mysql from "mysql2";
+import userService from "../service/userService";
+
+//create connection
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'jwt'
+});
+
 const handleHelloWorld = (req, res) => {
     // return res.send("Hello World!");
     const name = "Thanh Thai";
@@ -13,8 +23,20 @@ const handleUserPage = (req, res) => {
     return res.render("user.ejs");
 }
 
+const handleCreateNewUser = (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    let username = req.body.username;
+
+    // userService.createNewUser(email, password, username);
+
+    userService.getUserList();
+    return res.send("Handle create new user")
+}
+
 module.exports = {
     handleHelloWorld,
     handleAboutMe,
-    handleUserPage
+    handleUserPage,
+    handleCreateNewUser
 }
